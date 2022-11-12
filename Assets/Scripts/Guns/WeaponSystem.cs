@@ -15,6 +15,20 @@ public class WeaponSystem : MonoBehaviour
     public RaycastHit raycastHit;
     public LayerMask whatIsEnemy;
 
+    // TODO - Add camera shake
+    // TODO - Add bullet hole graphics
+
+    private void Awake()
+    {
+        bulletsLeft = magazineSize;
+        readyToShoot = true;
+    }
+
+    private void Update()
+    {
+        ParseInput();
+    }
+
     private void ParseInput()
     {
         if(allowHoldToShoot)
@@ -31,6 +45,7 @@ public class WeaponSystem : MonoBehaviour
         }
 
         if (bulletsLeft > 0 && readyToShoot && !isReloading && isShooting) {
+            bulletsShot = bulletsPerTap;
             Shoot();
         }
     }
@@ -74,7 +89,14 @@ public class WeaponSystem : MonoBehaviour
             }
         }
         bulletsLeft--;
-        Invoke("ResetShootingState", timeBetweenShots); // se va apela functia dupa ce trece timpul dat ca al 2-lea argument
+        bulletsShot--;
+
+        Invoke("ResetShootingState", fireRate); // se va apela functia dupa ce trece timpul dat ca al 2-lea argument
+
+        if(bulletsShot > 0 && bulletsLeft > 0) // daca mai sunt gloante de tras
+        {
+            Invoke("Shoot", timeBetweenShots);
+        }
     }
 
     private void ResetShootingState()
