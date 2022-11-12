@@ -15,8 +15,11 @@ public class WeaponSystem : MonoBehaviour
     public RaycastHit raycastHit;
     public LayerMask whatIsEnemy;
 
+    // Elemente de grafica
+    // TODO - Display bullet amount
     // TODO - Add camera shake
-    // TODO - Add bullet hole graphics
+
+    public GameObject muzzleFlash, bulletHoleGraphic;
 
     private void Awake()
     {
@@ -90,6 +93,11 @@ public class WeaponSystem : MonoBehaviour
         }
         bulletsLeft--;
         bulletsShot--;
+
+        // Punem bullet hole acolo unde am lovit
+        Instantiate(bulletHoleGraphic, raycastHit.point, Quaternion.Euler(0, 180, 0));
+        // Punem flash la arma
+        Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
 
         Invoke("ResetShootingState", fireRate); // se va apela functia dupa ce trece timpul dat ca al 2-lea argument
 
