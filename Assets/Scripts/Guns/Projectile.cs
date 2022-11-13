@@ -1,4 +1,4 @@
-using UnityEngine;
+    using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
@@ -76,7 +76,7 @@ public class Projectile : MonoBehaviour
         collisions++;
 
         //Explode if bullet hits an enemy directly and explodeOnTouch is activated
-        if (collision.collider.CompareTag("Player") && explodeOnTouch) { Explode(); Debug.Log("a intrat in coliziune"); }
+        if (collision.collider.CompareTag("Player") && explodeOnTouch) { Explode(); GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().health -= explosionDamage; }
     }
 
     private void Setup()

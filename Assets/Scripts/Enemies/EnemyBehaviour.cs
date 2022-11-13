@@ -11,6 +11,8 @@ public class EnemyBehaviour : MonoBehaviour
 
     public float health;
 
+    public Transform shootingPoint;
+
     // Miscare
     public Vector3 walkPoint;
     bool walkPointSet;
@@ -82,7 +84,7 @@ public class EnemyBehaviour : MonoBehaviour
         if (!alreadyAttacked)
         {
             /// Atac
-            Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+            Rigidbody rb = Instantiate(projectile, shootingPoint.position, Quaternion.identity).GetComponent<Rigidbody>();
             rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
             rb.AddForce(transform.up * 5f, ForceMode.Impulse);
             /// Sfarsit atac
@@ -107,6 +109,7 @@ public class EnemyBehaviour : MonoBehaviour
         Destroy(gameObject);
     }
 
+    // Pentru a putea vizualiza in editor rangeul de atac si vedere al inamicului
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
