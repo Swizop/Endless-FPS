@@ -76,7 +76,13 @@ public class Projectile : MonoBehaviour
         collisions++;
 
         //Explode if bullet hits an enemy directly and explodeOnTouch is activated
-        if (collision.collider.CompareTag("Player") && explodeOnTouch) { Explode(); GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().health -= explosionDamage; }
+        if (collision.collider.CompareTag("Player") && explodeOnTouch) 
+        { 
+            // Explode(); 
+            Destroy(gameObject);
+            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().health =
+                Mathf.Max(GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().health - explosionDamage, 0);
+        }
     }
 
     private void Setup()

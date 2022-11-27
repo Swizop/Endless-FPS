@@ -69,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
         // If the player is in the air, we apply gravity
         else
         {
-            print("In the air");
+            // print("In the air");
             currentForceVelocity.y -= gravityStrength * Time.deltaTime;
         }
 
