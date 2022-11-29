@@ -7,13 +7,18 @@ public class MainMenu : MonoBehaviour
 {
     public string firstLevel;
 
-    // Start is called before the first frame update
+    private AudioSource gameStartedAudio;
+
     void Start()
     {
-        
+
+    // this part plays the start up sound (the BOOM)
+
+        gameStartedAudio= GetComponent<AudioSource>();
+        gameStartedAudio.volume = 0.1f;
+        gameStartedAudio.Play();
     }
 
-    // Update is called once per frame
     void Update()
     {
         
@@ -25,10 +30,21 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene(firstLevel);
     }
 
+    public void Settings()
+    {
+
+    }
+
     // Bound to the Exit button in the MainMenu
     public void ExitGame()
     {
         Application.Quit();
         Debug.Log("Quitting Game");
+    }
+
+    public void playButtonSound(AudioSource btnSound)
+    {
+        btnSound.volume = 0.5f;
+        btnSound.Play();
     }
 }
