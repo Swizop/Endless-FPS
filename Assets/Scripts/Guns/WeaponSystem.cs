@@ -17,8 +17,10 @@ public class WeaponSystem : MonoBehaviour
     public LayerMask whatIsEnemy;
 
     // Elemente de grafica
+    public CameraShake cameraShake;
+    public float cameraShakeStrength, cameraShakeDuration;
+
     // TODO - Display bullet amount
-    // TODO - Add camera shake
 
     public GameObject muzzleFlash, bulletHoleGraphic;
 
@@ -95,6 +97,9 @@ public class WeaponSystem : MonoBehaviour
                 Debug.Log("lovit");
             }
         }
+
+        cameraShake.Shake(cameraShakeDuration, cameraShakeStrength);
+
         bulletsLeft--;
         bulletsShot--;
 
