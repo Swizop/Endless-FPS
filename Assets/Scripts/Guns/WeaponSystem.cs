@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class WeaponSystem : MonoBehaviour
 {
@@ -19,8 +20,7 @@ public class WeaponSystem : MonoBehaviour
     // Elemente de grafica
     public CameraShake cameraShake;
     public float cameraShakeStrength, cameraShakeDuration;
-
-    // TODO - Display bullet amount
+    public TextMeshProUGUI text;
 
     public GameObject muzzleFlash, bulletHoleGraphic;
 
@@ -33,6 +33,7 @@ public class WeaponSystem : MonoBehaviour
     private void Update()
     {
         ParseInput();
+        text.SetText(bulletsLeft + " / " + magazineSize);
     }
 
     private void ParseInput()
