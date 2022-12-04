@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using EZCameraShake;
 
 public class WeaponSystem : MonoBehaviour
 {
@@ -18,7 +19,6 @@ public class WeaponSystem : MonoBehaviour
     public LayerMask whatIsEnemy;
 
     // Elemente de grafica
-    public CameraShake cameraShake;
     public float cameraShakeStrength, cameraShakeDuration;
     public TextMeshProUGUI text;
 
@@ -99,7 +99,7 @@ public class WeaponSystem : MonoBehaviour
             }
         }
 
-        cameraShake.Shake(cameraShakeDuration, cameraShakeStrength);
+        CameraShaker.Instance.ShakeOnce(cameraShakeStrength, 1f, .1f, 1f);
 
         bulletsLeft--;
         bulletsShot--;
