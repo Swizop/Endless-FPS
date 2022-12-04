@@ -11,6 +11,7 @@ public class WeaponSystem : MonoBehaviour
     bool isShooting, readyToShoot, isReloading;
 
     public Camera fpsCamera;
+    public Rigidbody rigidBody;
     public Transform attackPoint;
     public RaycastHit raycastHit;
     public LayerMask whatIsEnemy;
@@ -69,10 +70,13 @@ public class WeaponSystem : MonoBehaviour
     {
         readyToShoot = false;
 
-        // TODO - assess daca si cum punem spread mai mare cand alergi. probabil ceva gen if(rigidbody.velocity.magnitude > 0) spread *= 1.5f;
-        //          sau daca userul tine apasat wsad
-        float spreadX = Random.Range(-spread, spread);
-        float spreadY = Random.Range(-spread, spread);
+        var spreadAffectedByRunning = spread;
+        if(rigidBody.velocity.magnitude > 0)
+        {
+            spreadAffectedByRunning *= 1.5f;
+        }
+        float spreadX = Random.Range(-spreadAffectedByRunning, spreadAffectedByRunning);
+        float spreadY = Random.Range(-spreadAffectedByRunning, spreadAffectedByRunning);
         Vector3 shotDirection = fpsCamera.transform.forward;
         shotDirection.x += spreadX;
         shotDirection.y += spreadY;
