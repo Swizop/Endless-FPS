@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -13,11 +14,13 @@ public class PauseMenu : MonoBehaviour
     private GameObject playerHUD;
     [SerializeField]
     private GameObject player;
+    [SerializeField] 
+    private string mainMenuScript;
 
     void Update()
     {
         // every time the Escape key is pressed
-        if (Input.GetKeyDown(KeyCode.KeypadPlus)) 
+        if (Input.GetKeyDown(KeyCode.Escape)) 
         {
 
             Debug.Log(GameIsPaused);
@@ -32,7 +35,8 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
-    void ResumeGame()
+    // method also called when "RESUME" button is clicked
+    public void ResumeGame()
     {
         pauseMenuUI.SetActive(false);
         playerHUD.SetActive(true);
@@ -60,5 +64,16 @@ public class PauseMenu : MonoBehaviour
 
         Time.timeScale = 0f;
         GameIsPaused = true;
+    }
+
+    // method called when "SETTINGS" button is pressed
+    public void OpenSettings()
+    {
+
+    }
+
+    public void Exit()
+    {
+        SceneManager.LoadScene(mainMenuScript);
     }
 }
