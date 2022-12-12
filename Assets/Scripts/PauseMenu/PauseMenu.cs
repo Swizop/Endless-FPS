@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/*
+ * Video used: https://youtu.be/JivuXdrIHK0
+ * eu eram la https://youtu.be/JivuXdrIHK0?t=593
+ */
 public class PauseMenu : MonoBehaviour
 {
     // boolean variable that stores the state of the game (if paused or not)
