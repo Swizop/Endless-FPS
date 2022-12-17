@@ -1,6 +1,4 @@
 using UnityEngine;
-using TMPro;
-using EZCameraShake;
 
 public class WeaponSystem : MonoBehaviour
 {
@@ -13,14 +11,13 @@ public class WeaponSystem : MonoBehaviour
     bool isShooting, readyToShoot, isReloading;
 
     public Camera fpsCamera;
-    public Rigidbody rigidBody;
     public Transform attackPoint;
     public RaycastHit raycastHit;
     public LayerMask whatIsEnemy;
 
     // Elemente de grafica
-    public float cameraShakeStrength, cameraShakeDuration;
-    public TextMeshProUGUI text;
+    // TODO - Display bullet amount
+    // TODO - Add camera shake
 
     public GameObject muzzleFlash, bulletHoleGraphic;
 
@@ -33,7 +30,6 @@ public class WeaponSystem : MonoBehaviour
     private void Update()
     {
         ParseInput();
-        text.SetText(bulletsLeft + " / " + magazineSize);
     }
 
     private void ParseInput()
@@ -73,13 +69,10 @@ public class WeaponSystem : MonoBehaviour
     {
         readyToShoot = false;
 
-        var spreadAffectedByRunning = spread;
-        if(rigidBody.velocity.magnitude > 0)
-        {
-            spreadAffectedByRunning *= 1.5f;
-        }
-        float spreadX = Random.Range(-spreadAffectedByRunning, spreadAffectedByRunning);
-        float spreadY = Random.Range(-spreadAffectedByRunning, spreadAffectedByRunning);
+        // TODO - assess daca si cum punem spread mai mare cand alergi. probabil ceva gen if(rigidbody.velocity.magnitude > 0) spread *= 1.5f;
+        //          sau daca userul tine apasat wsad
+        float spreadX = Random.Range(-spread, spread);
+        float spreadY = Random.Range(-spread, spread);
         Vector3 shotDirection = fpsCamera.transform.forward;
         shotDirection.x += spreadX;
         shotDirection.y += spreadY;
@@ -98,9 +91,6 @@ public class WeaponSystem : MonoBehaviour
                 Debug.Log("lovit");
             }
         }
-
-        CameraShaker.Instance.ShakeOnce(cameraShakeStrength, 1f, .1f, 1f);
-
         bulletsLeft--;
         bulletsShot--;
 
