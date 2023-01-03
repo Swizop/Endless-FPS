@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -16,9 +17,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     public Transform shootingPoint;
 
-
     //Viata
-    public EnemyHealthBar npcHealthBar;
     private bool _healthBarHidden;
     [SerializeField]
     private KeyCode damageKey;
@@ -40,23 +39,26 @@ public class EnemyBehaviour : MonoBehaviour
     private void Start()
     {
         health = maxHealth;
-        npcHealthBar.SetMaxHealth(maxHealth);
     }
 
     private void Awake()
     {
         player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
-        npcHealthBar = GetComponentInChildren<EnemyHealthBar>();
     }
+
+
+    public GameObject HealthPickup;
+    public GameObject AmmoPickup;
+    public GameObject InvincibilityPickup;
 
     private void Update()
     {
-    
-        /// Pentru a putea testa bara de viata si raspunsul la damage al inamicului
-        if (Input.GetKeyDown(damageKey))
+        // Modificam constant viata
+        health = GetComponent<EnemyHealthBar>().health;
+        if (health <= 0)
         {
-            TakeDamage(Random.Range(maxHealth / 20, (int)(maxHealth / 3.3f) ));
+            Invoke(nameof(DestroyEnemy),0f);
         }
 
         // Verificam daca este in range pentru atac sau pentru urmarire
@@ -152,13 +154,11 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void HideHealthBar()
     {
-        npcHealthBar.gameObject.SetActive(false);
         _healthBarHidden = true;
     }
 
     private void ShowHealthBar()
     {
-        npcHealthBar.gameObject.SetActive(true);
         _healthBarHidden = false;
     }
 
@@ -167,16 +167,35 @@ public class EnemyBehaviour : MonoBehaviour
         alreadyAttacked = false;
     }
 
-    public void TakeDamage(float damage)
-    {
-        health -= damage;
-        npcHealthBar.SetHealth(health);
-
-        if (health <= 0) Invoke(nameof(DestroyEnemy), 0.5f);
-    }
     private void DestroyEnemy()
     {
-        npcHealthBar.DestroyHealthBar();
+        // The enemy has a small chance of spawning a Power Up upon it's death
+        float chance = Random.Range(0, 1f);
+        // Debug.Log(chance);
+        WeaponSystem weaponSystem = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<WeaponSystem>();
+        if (weaponSystem.bulletsLeft < (2 / 10 * weaponSystem.magazineSize) && chance >= 0.6f) // If the player is low on ammo, we help him by giving him a bigger chance to replenish it
+        {
+            Instantiate(AmmoPickup, transform.position, Quaternion.identity);
+        }
+        else if (GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().health < 25 && chance >= 0.6f) // Same story as above, but for health
+        {
+            Instantiate(HealthPickup, transform.position, Quaternion.identity);
+        }
+        else if (chance >= 0.8f) // 20% chance 
+        {
+            if (chance < 0.85f) // ~5% chance of Invincibility Pickup
+            {
+                Instantiate(InvincibilityPickup,transform.position, Quaternion.identity);
+            }
+            else if (chance < 0.92f) // ~7% chance of Health
+            {
+                Instantiate(HealthPickup, transform.position, Quaternion.identity);
+            }
+            else // ~8% chance of Ammo
+            {
+                Instantiate(AmmoPickup, transform.position, Quaternion.identity);
+            }
+        }
         Destroy(gameObject);   
     }
 

@@ -9,6 +9,7 @@ public class HealthBarUpdate : MonoBehaviour
     void Update()
     {
         // Converting from a 0-100 health system to the 0-1f fill amount
-        GetComponent<Image>().fillAmount = (GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().health / 100.0f);
+        if (GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>())
+            GetComponent<Image>().fillAmount = (GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().health / 100.0f);
     }
 }

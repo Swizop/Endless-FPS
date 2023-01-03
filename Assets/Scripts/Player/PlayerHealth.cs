@@ -5,6 +5,12 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     public int health = 100;
+    public bool invincible = false;
+
+    void DisableInvincibility()
+    {
+        invincible = false;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -17,13 +23,14 @@ public class PlayerHealth : MonoBehaviour
         if (other.CompareTag("AmmoPickUp"))
         {
             Destroy(other.transform.parent.parent.gameObject);
-            // Function to add ammo
+            GetComponentInChildren<WeaponSystem>().bulletsLeft = Mathf.Min(GetComponentInChildren< WeaponSystem >().magazineSize, GetComponentInChildren<WeaponSystem>().bulletsLeft + 50);
         }
 
         if (other.CompareTag("StarPickUp"))
         {
             Destroy(other.transform.parent.parent.gameObject);
-            // Function to make player unable to lose health for a set amount of time
+            invincible = true;
+            Invoke("DisableInvincibility", 5f);
         }
 
         // Debug.Log(other.tag);
