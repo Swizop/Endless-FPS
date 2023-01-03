@@ -1,26 +1,25 @@
 using UnityEngine;
-using TMPro;
 using EZCameraShake;
 
 public class WeaponSystem : MonoBehaviour
 {
     public int damage;
+    public GameObject damagePopup;
     public float reloadTime, spread, range, fireRate, timeBetweenShots;
     public int magazineSize, bulletsPerTap;
     public bool allowHoldToShoot;
-    int bulletsShot, bulletsLeft;
+    public int bulletsShot, bulletsLeft;
 
     bool isShooting, readyToShoot, isReloading;
 
     public Camera fpsCamera;
-    public Rigidbody rigidBody;
+    public CharacterController characterController;
     public Transform attackPoint;
     public RaycastHit raycastHit;
     public LayerMask whatIsEnemy;
 
     // Elemente de grafica
     public float cameraShakeStrength, cameraShakeDuration;
-    public TextMeshPro text;
 
     public GameObject muzzleFlash, bulletHoleGraphic;
 
@@ -33,7 +32,6 @@ public class WeaponSystem : MonoBehaviour
     private void Update()
     {
         ParseInput();
-        text.SetText(bulletsLeft + " / " + magazineSize);
     }
 
     private void ParseInput()
@@ -73,10 +71,11 @@ public class WeaponSystem : MonoBehaviour
     {
         readyToShoot = false;
         var spreadAffectedByRunning = spread;
-        if (rigidBody.velocity.magnitude > 0)
+         if (characterController.velocity.magnitude > 0)
         {
             spreadAffectedByRunning *= 1.5f;
         }
+
         float spreadX = Random.Range(-spreadAffectedByRunning, spreadAffectedByRunning);
         float spreadY = Random.Range(-spreadAffectedByRunning, spreadAffectedByRunning);
 
@@ -88,14 +87,21 @@ public class WeaponSystem : MonoBehaviour
         // args: pozitia de start, directia, locul de stocare al ray-ului, range-ul, ce layer e afectat
         if (Physics.Raycast(fpsCamera.transform.position, fpsCamera.transform.forward, out raycastHit, range, whatIsEnemy))
         {
-            Debug.Log(raycastHit.collider.name);
+            // Debug.Log(raycastHit.collider.name);
 
-            // TODO - pune tagul "Enemy" la adversari
             if (raycastHit.collider.CompareTag("Enemy"))
             {
-                // TODO - implementeaza un AI care trage. Redu-i din hp, ceva gen
-                // raycastHit.collider.GetComponent<ShootingAi>().TakeDamage(damage);
-                Debug.Log("lovit");
+                raycastHit.transform.gameObject.GetComponent<EnemyHealthBar>().health =
+                    Mathf.Max(0, raycastHit.transform.gameObject.GetComponent<EnemyHealthBar>().health - damage);
+
+                Instantiate(damagePopup, raycastHit.transform.position + new Vector3(0,1,0), GameObject.FindGameObjectWithTag("Player").transform.rotation);
+            }
+            else
+            {
+                // Punem bullet hole acolo unde am lovit
+                GameObject decalObject = Instantiate(bulletHoleGraphic, raycastHit.point + (raycastHit.normal * 0.025f), Quaternion.identity) as GameObject;
+                // Rotim Decalul aplicat pe textura
+                decalObject.transform.rotation = Quaternion.FromToRotation(Vector3.forward, raycastHit.normal);
             }
         }
 
@@ -104,10 +110,9 @@ public class WeaponSystem : MonoBehaviour
         bulletsLeft--;
         bulletsShot--;
 
-        // Punem bullet hole acolo unde am lovit
-        Instantiate(bulletHoleGraphic, raycastHit.point, Quaternion.Euler(0, 180, 0));
-        // Punem flash la arma
-        Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
+        // Punem flash la arma, il distrugem dupa 2 secunde
+        Destroy(Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity),0.5f);
+        
 
         Invoke("ResetShootingState", fireRate); // se va apela functia dupa ce trece timpul dat ca al 2-lea argument
 

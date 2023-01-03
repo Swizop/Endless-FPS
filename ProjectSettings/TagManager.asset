@@ -8,6 +8,7 @@ TagManager:
   - HealthPickUp
   - StarPickUp
   - AmmoPickUp
+  - Enemy
   layers:
   - Default
   - TransparentFX
