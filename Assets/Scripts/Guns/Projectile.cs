@@ -80,8 +80,9 @@ public class Projectile : MonoBehaviour
         { 
             // Explode(); 
             Destroy(gameObject);
-            GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().health =
-                Mathf.Max(GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().health - explosionDamage, 0);
+            if (!GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().invincible)
+                GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().health =
+                    Mathf.Max(GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().health - explosionDamage, 0);
         }
     }
 
