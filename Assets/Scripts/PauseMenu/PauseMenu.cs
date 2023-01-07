@@ -20,6 +20,8 @@ public class PauseMenu : MonoBehaviour
     private GameObject player;
     [SerializeField] 
     private string mainMenuScript;
+    [SerializeField]
+    private AudioSource buttonsAudioSource;
 
     void Update()
     {
@@ -76,10 +78,10 @@ public class PauseMenu : MonoBehaviour
 
     }
 
-    public void playButtonSound(AudioSource btnSound)
+    public void playButtonSound()
     {
-        btnSound.volume = 0.5f;
-        btnSound.Play();
+        buttonsAudioSource.volume = 0.5f;
+        buttonsAudioSource.Play();
     }
 
     public void Exit()

@@ -24,7 +24,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 31288
+  controlID: 34324
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -141,7 +141,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 31289
+  controlID: 34325
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -166,7 +166,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 31280
+  controlID: 34326
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -226,7 +226,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: d695feff2aa7feff80aafeff74adfeffcab0feff96b6feffa2b6feff36b7feff50b7feffdac0feff76c1feff94c1feff86d6feff92d6feff26d7feff38d7feff40d7feffb638ffffd438ffffc23bffffc83dffffe63dffff603fffff7c4cffff9a4cffff6c4dfffff44fffff1250ffffc851fffff0a5fffff2a5fffff4a5fffff6a5fffffca5ffff76a7ffff94a7ffff1aa8ffff88aaffff52e1ffff04e2ffff72e3ffff84e3ffff92e3ffff10e4ffff4af5ffff5cf5ffff6af5ffff5af6ffff28f7ffff3af7ffff50f7ffffeafafffffcfaffff0afbfffff2800000188100002a81000016c300004ec50000b6c5000010c6000004c9000038cb0000a0cb0000facb00003acc00006ad70000a2d900000cda000066da000054db0000f8dd000046de000052de00006cde0000442d0100
+      m_ExpandedIDs: 7257feff8457feff9257feffd695feff2aa7feff80aafeff74adfeffcab0feff96b6feffa2b6feff36b7feff50b7feffdac0feff76c1feff94c1feff86d6feff92d6feff26d7feff38d7feff40d7feffb638ffffd438ffffc23bffffc83dffffe63dffff603fffff7c4cffff9a4cffff6c4dfffff44fffff1250ffffc851fffff0a5fffff2a5fffff4a5fffff6a5fffffca5ffff76a7ffff94a7ffff1aa8ffff88aaffff52e1ffff04e2ffff72e3ffff84e3ffff92e3ffff10e4ffff4af5ffff5cf5ffff6af5ffff5af6ffff28f7ffff3af7ffff50f7ffffeafafffffcfaffff0afbfffff2800000188100002a81000016c300004ec50000b6c5000010c6000004c9000038cb0000a0cb0000facb00003acc00006ad70000a2d900000cda000066da000054db0000f8dd000046de000052de00006cde0000442d0100
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -683,22 +683,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/MainMenu
+    - Assets/Sounds
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts/MainMenu
+  - Assets/Sounds
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\Facultate\An_3_Sem_1\Jocuri\Proiect jocuri\Endless-FPS
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 26770000
-    m_LastClickedID: 30502
-    m_ExpandedIDs: 00000000b26e0000d66e000000ca9a3b
+    m_SelectedIDs: da6e0000
+    m_LastClickedID: 28378
+    m_ExpandedIDs: 00000000b26e000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -751,8 +751,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: d4090000
-    m_LastClickedInstanceID: 2516
+    m_SelectedInstanceIDs: 
+    m_LastClickedInstanceID: 0
     m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c623000000000000
     m_RenameOverlay:
@@ -870,7 +870,7 @@ MonoBehaviour:
     m_CachedPref: 160
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
-  m_LastInspectedObjectInstanceID: 2516
+  m_LastInspectedObjectInstanceID: -1
   m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0
