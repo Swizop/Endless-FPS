@@ -68,6 +68,18 @@ public class SettingsController : MonoBehaviour
         defaultResolutionIndex = currentResolutionIndex;
         _resolutionIndex = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
+
+        // QUALITY
+        if (PlayerPrefs.HasKey("masterQuality"))
+        {
+            _qualityLevel = PlayerPrefs.GetInt("masterQuality");
+        }
+        else
+        {
+            _qualityLevel = QualitySettings.GetQualityLevel();
+        }
+
+        graphicsDropdown.value = _qualityLevel;
     }
 
     // method is called when the slider value is changed
@@ -99,7 +111,7 @@ public class SettingsController : MonoBehaviour
         Debug.Log("Settings applied");
 
     // GRAPHICS
-        PlayerPrefs.SetFloat("masterQuality", _qualityLevel);
+        PlayerPrefs.SetInt("masterQuality", _qualityLevel);
         QualitySettings.SetQualityLevel(_qualityLevel);
 
     // RESOLUTION

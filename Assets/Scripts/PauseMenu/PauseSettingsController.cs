@@ -68,6 +68,18 @@ public class PauseSettingsController : MonoBehaviour
         defaultResolutionIndex = currentResolutionIndex;
         _resolutionIndex = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
+
+        // QUALITY
+        if (PlayerPrefs.HasKey("masterQuality"))
+        {
+            _qualityLevel = PlayerPrefs.GetInt("masterQuality");
+        } 
+        else
+        {
+            _qualityLevel = QualitySettings.GetQualityLevel();
+        }
+        
+        graphicsDropdown.value = _qualityLevel;
     }
 
     void Update()
@@ -109,7 +121,7 @@ public class PauseSettingsController : MonoBehaviour
         Debug.Log("Settings applied");
 
     // GRAPHICS
-        PlayerPrefs.SetFloat("masterQuality", _qualityLevel);
+        PlayerPrefs.SetInt("masterQuality", _qualityLevel);
         QualitySettings.SetQualityLevel(_qualityLevel);
 
     // RESOLUTION

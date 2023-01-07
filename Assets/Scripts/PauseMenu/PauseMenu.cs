@@ -26,13 +26,14 @@ public class PauseMenu : MonoBehaviour
         // every time the Escape key is pressed
         if (Input.GetKeyDown(KeyCode.Escape)) 
         {
-            Debug.Log(GameIsPaused);
             if (GameIsPaused)
             {
+                Debug.Log("Game was resumed");
                 ResumeGame();
             } 
             else
             {
+                Debug.Log("Game was paused");
                 PauseGame();
             }
         }
@@ -75,8 +76,16 @@ public class PauseMenu : MonoBehaviour
 
     }
 
+    public void playButtonSound(AudioSource btnSound)
+    {
+        btnSound.volume = 0.5f;
+        btnSound.Play();
+    }
+
     public void Exit()
     {
+        GameIsPaused= false;
+        Time.timeScale = 1.0f;
         SceneManager.LoadScene(mainMenuScript);
     }
 }
