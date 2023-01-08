@@ -17,6 +17,7 @@ public class WeaponSystem : MonoBehaviour
     public Transform attackPoint;
     public RaycastHit raycastHit;
     public LayerMask whatIsEnemy;
+    public PauseSettingsController pauseSettingsController;
 
     // Elemente de grafica
     public float cameraShakeStrength, cameraShakeDuration;
@@ -70,22 +71,32 @@ public class WeaponSystem : MonoBehaviour
     private void Shoot()
     {
         readyToShoot = false;
-        var spreadAffectedByRunning = spread;
-         if (characterController.velocity.magnitude > 0)
+        // Spread is influenced by difficulty and by the user's state (running or not)
+        float influencedSpread = spread + ((float)pauseSettingsController.difficultyLevel / 45);
+        if (characterController.velocity.magnitude > 0)
         {
-            spreadAffectedByRunning *= 1.5f;
+            influencedSpread *= 1.5f;
         }
 
-        float spreadX = Random.Range(-spreadAffectedByRunning, spreadAffectedByRunning);
-        float spreadY = Random.Range(-spreadAffectedByRunning, spreadAffectedByRunning);
+        // Random seed
+        Random.InitState(System.DateTime.Now.Millisecond);
+        float spreadX = Random.Range(-influencedSpread, influencedSpread);
+        float spreadY = Random.Range(-influencedSpread, influencedSpread);
+        float spreadZ = Random.Range(-influencedSpread, influencedSpread);
 
-        Vector3 shotDirection = fpsCamera.transform.forward;
-        shotDirection.x += spreadX;
-        shotDirection.y += spreadY;
+        Vector3 shotDirection = fpsCamera.transform.forward + new Vector3(spreadX, spreadY, spreadZ);
 
+        Random.InitState(System.DateTime.Now.Millisecond);
+        // Generam un damage nou pentru hit, mai mic decat damage-ul normal al armei.
+        int newDamage = Random.Range(1, damage);
+        // Damage-ul hitului va fi schimbat in cel nou (mai mic), cu o probabilitate dependenta de dificultatea jocului
+        if(Random.Range(0, 100) < (pauseSettingsController.difficultyLevel * 10))
+        {
+            damage = newDamage;
+        }
 
         // args: pozitia de start, directia, locul de stocare al ray-ului, range-ul, ce layer e afectat
-        if (Physics.Raycast(fpsCamera.transform.position, fpsCamera.transform.forward, out raycastHit, range, whatIsEnemy))
+        if (Physics.Raycast(fpsCamera.transform.position, shotDirection, out raycastHit, range, whatIsEnemy))
         {
             // Debug.Log(raycastHit.collider.name);
 

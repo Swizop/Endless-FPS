@@ -1272,7 +1272,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Low
+  m_text: Easy
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1517,20 +1517,18 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
-    - m_Text: Low
+    - m_Text: Easy
       m_Image: {fileID: 0}
-    - m_Text: Medium
+    - m_Text: Normal
       m_Image: {fileID: 0}
-    - m_Text: High
-      m_Image: {fileID: 0}
-    - m_Text: Ultra
+    - m_Text: Hard
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 315233048}
         m_TargetAssemblyTypeName: PauseSettingsController, Assembly-CSharp
-        m_MethodName: SetQuality
+        m_MethodName: SetDifficulty
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1819,6 +1817,10 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 9024660894568148446, guid: 8bfa25624562e9849979c34380e08faa, type: 3}
+      propertyPath: pauseSettingsController
+      value: 
+      objectReference: {fileID: 315233048}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8bfa25624562e9849979c34380e08faa, type: 3}
 --- !u!1001 &1156829431
