@@ -34,6 +34,12 @@ public class PauseSettingsController : MonoBehaviour
     private int _resolutionIndex;
     private Resolution[] resolutions;
 
+    [Header("Difficulty")]
+    [SerializeField] private TMP_Dropdown difficultyDropdown;
+    public int difficultyLevel;
+    private int _previousDifficultyLevel;
+    private int defaultDifficultyIndex = 0;
+
 
     private void Start()
     {
@@ -80,6 +86,18 @@ public class PauseSettingsController : MonoBehaviour
         }
         
         graphicsDropdown.value = _qualityLevel;
+
+        // DIFFICULTY
+        if (PlayerPrefs.HasKey("masterDifficulty"))
+        {
+            _previousDifficultyLevel = PlayerPrefs.GetInt("masterDifficulty");
+        }
+        else
+        {
+            _previousDifficultyLevel = defaultDifficultyIndex;
+        }
+        difficultyLevel = _previousDifficultyLevel;
+        difficultyDropdown.value = difficultyLevel;
     }
 
     void Update()
@@ -105,6 +123,13 @@ public class PauseSettingsController : MonoBehaviour
         _qualityLevel= qualityIndex;
     }
 
+    public void SetDifficulty(int difficultyIndex)
+    {
+        Debug.Log("New difficulty index: " + difficultyIndex);
+        _previousDifficultyLevel = difficultyLevel;
+        difficultyLevel = difficultyIndex;
+    }
+
     public void SetResolution(int resolutionIndex)
     {
         _resolutionIndex = resolutionIndex;
@@ -124,7 +149,11 @@ public class PauseSettingsController : MonoBehaviour
         PlayerPrefs.SetInt("masterQuality", _qualityLevel);
         QualitySettings.SetQualityLevel(_qualityLevel);
 
-    // RESOLUTION
+    // DIFFICULTY
+    PlayerPrefs.SetInt("masterDifficulty", difficultyLevel);
+        _previousDifficultyLevel = difficultyLevel;
+
+        // RESOLUTION
         PlayerPrefs.SetFloat("masterResolutionHeight", resolutions[resolutionDropdown.value].height);
         PlayerPrefs.SetFloat("masterResolutionWidth", resolutions[resolutionDropdown.value].width);
 
@@ -144,7 +173,11 @@ public class PauseSettingsController : MonoBehaviour
         _qualityLevel = QualitySettings.GetQualityLevel();
         graphicsDropdown.value = _qualityLevel;
 
-    // RESOLUTION
+        // DIFFICULTY
+        difficultyLevel = _previousDifficultyLevel;
+        difficultyDropdown.value = difficultyLevel;
+
+        // RESOLUTION
         string currentResolution = Screen.currentResolution.width + " x " + Screen.currentResolution.height;
         _resolutionIndex = Array.IndexOf(resolutions, currentResolution);
         resolutionDropdown.value = _resolutionIndex;
@@ -161,7 +194,12 @@ public class PauseSettingsController : MonoBehaviour
         _qualityLevel = defaultQualityIndex;
         graphicsDropdown.value = _qualityLevel;
 
-    // RESOLUTION
+    // DIFFICULTY
+    difficultyLevel = defaultDifficultyIndex;
+    _previousDifficultyLevel = defaultDifficultyIndex;
+    difficultyDropdown.value = difficultyLevel;
+
+        // RESOLUTION
         _resolutionIndex = defaultResolutionIndex;
         resolutionDropdown.value = _resolutionIndex;
     }
