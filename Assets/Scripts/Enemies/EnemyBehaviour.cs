@@ -17,6 +17,8 @@ public class EnemyBehaviour : MonoBehaviour
 
     public Transform shootingPoint;
 
+    public Animator animator;
+
     //Viata
     private bool _healthBarHidden;
     [SerializeField]
@@ -54,8 +56,6 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void Update()
     {
-        // Modificam constant viata
-        health = GetComponent<EnemyHealthBar>().health;
         if (health <= 0)
         {
             Invoke(nameof(DestroyEnemy),0f);
@@ -117,6 +117,7 @@ public class EnemyBehaviour : MonoBehaviour
     }
     private void SearchWalkPoint()
     {
+
         // Alegem un punct random unde sa se deplaseze inamicul
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
         float randomX = Random.Range(-walkPointRange, walkPointRange);
@@ -134,6 +135,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void AttackPlayer()
     {
+
         // Oprim inamicul
         agent.SetDestination(transform.position);
 

@@ -7,6 +7,6 @@ public class EnemyHealthBarUpdate : MonoBehaviour
 {
     void Update()
     {
-         GetComponent<Image>().fillAmount = GetComponentInParent<EnemyHealthBar>().health / 100.0f;
+         GetComponent<Image>().fillAmount = GetComponentInParent<EnemyBehaviour>().health / (GetComponentInParent<EnemyBehaviour>().maxHealth * 1.0f);
     }
 }

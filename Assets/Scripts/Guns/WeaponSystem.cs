@@ -102,8 +102,8 @@ public class WeaponSystem : MonoBehaviour
 
             if (raycastHit.collider.CompareTag("Enemy"))
             {
-                raycastHit.transform.gameObject.GetComponent<EnemyHealthBar>().health =
-                    Mathf.Max(0, raycastHit.transform.gameObject.GetComponent<EnemyHealthBar>().health - damage);
+                raycastHit.transform.gameObject.GetComponent<EnemyBehaviour>().health =
+                    Mathf.Max(0, raycastHit.transform.gameObject.GetComponent<EnemyBehaviour>().health - damage);
 
                 Instantiate(damagePopup, raycastHit.transform.position + new Vector3(0,1,0), GameObject.FindGameObjectWithTag("Player").transform.rotation);
             }
