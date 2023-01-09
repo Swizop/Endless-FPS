@@ -59,6 +59,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -344,10 +345,10 @@ MonoBehaviour:
   shootingPoint: {fileID: 5818524175250019023}
   damageKey: 9
   walkPoint: {x: 0, y: 0, z: 0}
-  walkPointRange: 5
+  walkPointRange: 25
   timeBetweenAttacks: 0.3
   projectile: {fileID: 4211772462235211190, guid: dc479195ef2c1fd48830885ab26ea925, type: 3}
-  sightRange: 12
+  sightRange: 25
   attackRange: 7
   playerInSightRange: 0
   playerInAttackRange: 0

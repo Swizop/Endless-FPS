@@ -15,6 +15,8 @@ public class PauseMenu : MonoBehaviour
     [SerializeField]
     private GameObject pauseMenuUI;
     [SerializeField]
+    private GameObject gameOverUI;
+    [SerializeField]
     private GameObject playerHUD;
     [SerializeField]
     private GameObject player;
@@ -26,18 +28,25 @@ public class PauseMenu : MonoBehaviour
     void Update()
     {
         // every time the Escape key is pressed
-        if (Input.GetKeyDown(KeyCode.Escape)) 
+        if (Input.GetKeyDown(KeyCode.Escape) && !gameOverUI.activeSelf) 
         {
             if (GameIsPaused)
             {
-                Debug.Log("Game was resumed");
+                // Debug.Log("Game was resumed");
                 ResumeGame();
             } 
             else
             {
-                Debug.Log("Game was paused");
+                // Debug.Log("Game was paused");
                 PauseGame();
             }
+        }
+
+        // Whenever the Player dies
+        if (GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().health <= 0 && !gameOverUI.activeSelf)
+        {
+            // print("Game Over");
+            GameOver();
         }
     }
 
@@ -72,10 +81,39 @@ public class PauseMenu : MonoBehaviour
         GameIsPaused = true;
     }
 
+    void GameOver()
+    {
+        gameOverUI.SetActive(true);
+        playerHUD.SetActive(false);
+
+        // disable the player view (camera souldn't move when paused)
+        player.GetComponent<PlayerLook>().enabled = false;
+
+        // show the cursor when the game is paused
+        Cursor.lockState = CursorLockMode.None;
+
+        Time.timeScale = 0f;
+        GameIsPaused = true;
+    }
+
     // method called when "SETTINGS" button is pressed
     public void OpenSettings()
     {
 
+    }
+
+    public void RestartScene()
+    {
+        // reenable the player view when the game resumes
+        player.GetComponent<PlayerLook>().enabled = true;
+
+        // hide the cursor when the game resumes
+        Cursor.lockState = CursorLockMode.Locked;
+
+        Time.timeScale = 1.0f;
+        GameIsPaused = false;
+
+        SceneManager.LoadScene(Application.loadedLevel);
     }
 
     public void playButtonSound()

@@ -1,3 +1,4 @@
+using Assets.Pixelation.Scripts;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class PlayerHealth : MonoBehaviour
     void DisableInvincibility()
     {
         invincible = false;
+        GetComponentInChildren<Pixelation>().enabled = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -30,6 +32,7 @@ public class PlayerHealth : MonoBehaviour
         {
             Destroy(other.transform.parent.parent.gameObject);
             invincible = true;
+            GetComponentInChildren<Pixelation>().enabled = true;
             Invoke("DisableInvincibility", 5f);
         }
 
