@@ -106,6 +106,7 @@ public class WeaponSystem : MonoBehaviour
             {
                 raycastHit.transform.gameObject.GetComponent<EnemyBehaviour>().health =
                     Mathf.Max(0, raycastHit.transform.gameObject.GetComponent<EnemyBehaviour>().health - difficultyAffectedDamage);
+                raycastHit.transform.gameObject.GetComponent<EnemyBehaviour>().SlowDown();
 
                 Instantiate(damagePopup, raycastHit.transform.position + new Vector3(0,1,0), GameObject.FindGameObjectWithTag("Player").transform.rotation);
             }

@@ -1,3 +1,4 @@
+using System.Collections;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.AI;
@@ -38,6 +39,9 @@ public class EnemyBehaviour : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange, playerVisible;
 
+    // Folosit pt functia async, SlowDown
+    private Coroutine coroutine;
+
     private void Start()
     {
         health = maxHealth;
@@ -72,6 +76,24 @@ public class EnemyBehaviour : MonoBehaviour
 
         if (playerInAttackRange && playerInSightRange) AttackPlayer();
 
+    }
+
+    public void SlowDown()
+    {
+        if(coroutine != null)
+        {
+            agent.speed *= 2;
+            StopCoroutine(coroutine);
+        }
+        coroutine = StartCoroutine(AsyncSlowDown());
+    }
+
+    private IEnumerator AsyncSlowDown()
+    {
+        agent.speed /= 2;
+        yield return new WaitForSeconds(0.9f);
+        StopCoroutine(coroutine);
+        agent.speed *= 2;
     }
 
     public void LateUpdate()
