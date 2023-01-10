@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    //audio footsteps
+    //public AudioSource footstepsSound;
+
     public float moveSmoothTime;
     public float gravityStrength;
     public float jumpStrength;
@@ -15,6 +18,9 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 moveDampVelocity;
 
     private Vector3 currentForceVelocity;
+
+    [SerializeField]
+    AudioSource jumpSound;
 
     void Start()
     {
@@ -31,13 +37,15 @@ public class PlayerMovement : MonoBehaviour
             x = Input.GetAxisRaw("Horizontal"),
             y = 0f,
             z = Input.GetAxisRaw("Vertical")
+            
         };
 
-
+       
         // Making sure that the player input doesn't overwrite the maximum speed
         if (playerMovementInput.magnitude > 1f)
         {
             playerMovementInput.Normalize();
+            
         }
 
         // Rotating the movement vector so that forward movement is in front of the player
@@ -50,6 +58,7 @@ public class PlayerMovement : MonoBehaviour
             ref moveDampVelocity, moveSmoothTime);
         controller.Move(currentMoveVelocity * Time.deltaTime);
 
+       
 
         /* Jumping Part */
 
@@ -64,6 +73,7 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKey(KeyCode.Space))
             {
                 currentForceVelocity.y = jumpStrength;
+                jumpSound.Play();
             }
         }
         // If the player is in the air, we apply gravity
@@ -74,5 +84,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
         controller.Move(currentForceVelocity * Time.deltaTime);
+        
     }
 }

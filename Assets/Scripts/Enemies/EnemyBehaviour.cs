@@ -6,6 +6,10 @@ using UnityEngine.UI;
 
 public class EnemyBehaviour : MonoBehaviour
 {
+   
+    [SerializeField]
+    AudioSource enmSound;
+
     public NavMeshAgent agent;
 
     public Transform player;
@@ -74,8 +78,11 @@ public class EnemyBehaviour : MonoBehaviour
 
         if (playerInSightRange && !playerInAttackRange) ChasePlayer();
 
-        if (playerInAttackRange && playerInSightRange) AttackPlayer();
-
+        if (playerInAttackRange && playerInSightRange){
+            AttackPlayer();
+            enmSound.Play();
+        } 
+       
     }
 
     public void SlowDown()

@@ -3,7 +3,17 @@ using EZCameraShake;
 
 public class WeaponSystem : MonoBehaviour
 {
+
+     // --- Audio ---
+        public AudioClip GunShotClip;
+        public AudioSource source;
+        public Vector2 audioPitch = new Vector2(.9f, 1.1f);
+        //public bool scopeActive = true;
+
+   // private AudioSource mAudioSource;
+
     public int damage, difficultyAffectedDamage;
+
     public GameObject damagePopup;
     public float reloadTime, spread, range, fireRate, timeBetweenShots;
     public int magazineSize, bulletsPerTap;
@@ -24,20 +34,30 @@ public class WeaponSystem : MonoBehaviour
 
     public GameObject muzzleFlash, bulletHoleGraphic;
 
+     private void Start()
+        {
+            if(source != null) source.clip = GunShotClip;
+           // timeLastFired = 0;
+            //lastScopeState = scopeActive;
+        }
+
     private void Awake()
     {
         difficultyAffectedDamage = damage;
         bulletsLeft = magazineSize;
         readyToShoot = true;
+        //mAudioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
     {
+        //mAudioSource.Play();
         ParseInput();
     }
 
     private void ParseInput()
     {
+
         if(allowHoldToShoot)
         {
             isShooting = Input.GetKey(KeyCode.Mouse0);
@@ -117,6 +137,35 @@ public class WeaponSystem : MonoBehaviour
                 // Rotim Decalul aplicat pe textura
                 decalObject.transform.rotation = Quaternion.FromToRotation(Vector3.forward, raycastHit.normal);
             }
+             // --- Handle Audio ---
+            if (source != null)
+            {
+                // --- Sometimes the source is not attached to the weapon for easy instantiation on quick firing weapons like machineguns, 
+                // so that each shot gets its own audio source, but sometimes it's fine to use just 1 source. We don't want to instantiate 
+                // the parent gameobject or the program will get stuck in a loop, so we check to see if the source is a child object ---
+                if(source.transform.IsChildOf(transform))
+                {
+                    source.Play();
+                }
+                else
+                {
+                    // --- Instantiate prefab for audio, delete after a few seconds ---
+                    AudioSource newAS = Instantiate(source);
+                    if ((newAS = Instantiate(source)) != null && newAS.outputAudioMixerGroup != null && newAS.outputAudioMixerGroup.audioMixer != null)
+                    {
+                        // --- Change pitch to give variation to repeated shots ---
+                        newAS.outputAudioMixerGroup.audioMixer.SetFloat("Pitch", Random.Range(audioPitch.x, audioPitch.y));
+                        newAS.pitch = Random.Range(audioPitch.x, audioPitch.y);
+
+                        // --- Play the gunshot sound ---
+                        newAS.PlayOneShot(GunShotClip);
+
+                        // --- Remove after a few seconds. Test script only. When using in project I recommend using an object pool ---
+                        Destroy(newAS.gameObject, 4);
+                    }
+                }
+            }
+
         }
 
         CameraShaker.Instance.ShakeOnce(cameraShakeStrength, 1f, .1f, 1f);
