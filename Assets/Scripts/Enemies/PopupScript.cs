@@ -16,7 +16,7 @@ public class PopupScript : MonoBehaviour
         textMesh = GetComponent<TextMeshPro>();
         textMesh.text = 
             GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<WeaponSystem>()
-            .damage.ToString();
+            .difficultyAffectedDamage.ToString();
         textColor.a = 1;
         textMesh.color = textColor;
         

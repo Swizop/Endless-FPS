@@ -3,6 +3,7 @@ using EZCameraShake;
 
 public class WeaponSystem : MonoBehaviour
 {
+
      // --- Audio ---
         public AudioClip GunShotClip;
         public AudioSource source;
@@ -10,7 +11,9 @@ public class WeaponSystem : MonoBehaviour
         //public bool scopeActive = true;
 
    // private AudioSource mAudioSource;
-    public int damage;
+
+    public int damage, difficultyAffectedDamage;
+
     public GameObject damagePopup;
     public float reloadTime, spread, range, fireRate, timeBetweenShots;
     public int magazineSize, bulletsPerTap;
@@ -40,6 +43,7 @@ public class WeaponSystem : MonoBehaviour
 
     private void Awake()
     {
+        difficultyAffectedDamage = damage;
         bulletsLeft = magazineSize;
         readyToShoot = true;
         //mAudioSource = GetComponent<AudioSource>();
@@ -87,6 +91,7 @@ public class WeaponSystem : MonoBehaviour
 
     private void Shoot()
     {
+        difficultyAffectedDamage = damage;
         readyToShoot = false;
         // Spread is influenced by difficulty and by the user's state (running or not)
         float influencedSpread = spread + ((float)pauseSettingsController.difficultyLevel / 45);
@@ -109,7 +114,7 @@ public class WeaponSystem : MonoBehaviour
         // Damage-ul hitului va fi schimbat in cel nou (mai mic), cu o probabilitate dependenta de dificultatea jocului
         if(Random.Range(0, 100) < (pauseSettingsController.difficultyLevel * 10))
         {
-            damage = newDamage;
+            difficultyAffectedDamage = newDamage;
         }
 
         // args: pozitia de start, directia, locul de stocare al ray-ului, range-ul, ce layer e afectat
@@ -120,7 +125,8 @@ public class WeaponSystem : MonoBehaviour
             if (raycastHit.collider.CompareTag("Enemy"))
             {
                 raycastHit.transform.gameObject.GetComponent<EnemyBehaviour>().health =
-                    Mathf.Max(0, raycastHit.transform.gameObject.GetComponent<EnemyBehaviour>().health - damage);
+                    Mathf.Max(0, raycastHit.transform.gameObject.GetComponent<EnemyBehaviour>().health - difficultyAffectedDamage);
+                raycastHit.transform.gameObject.GetComponent<EnemyBehaviour>().SlowDown();
 
                 Instantiate(damagePopup, raycastHit.transform.position + new Vector3(0,1,0), GameObject.FindGameObjectWithTag("Player").transform.rotation);
             }
