@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -45,7 +46,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void Awake()
     {
-        player = GameObject.Find("Player").transform;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
     }
 
@@ -104,6 +105,8 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void Patroling()
     {
+        animator.SetBool("Run Forward", true);
+
         if (!walkPointSet) SearchWalkPoint();
 
         if (walkPointSet)
@@ -117,7 +120,7 @@ public class EnemyBehaviour : MonoBehaviour
     }
     private void SearchWalkPoint()
     {
-
+        animator.SetBool("Run Forward", true);
         // Alegem un punct random unde sa se deplaseze inamicul
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
         float randomX = Random.Range(-walkPointRange, walkPointRange);
@@ -130,11 +133,14 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void ChasePlayer()
     {
+        animator.SetBool("Run Forward", true);
         agent.SetDestination(player.position);
     }
 
-    private void AttackPlayer()
+    private async void AttackPlayer()
     {
+        animator.SetBool("Run Forward", false);
+        animator.SetTrigger("Attack 02");
 
         // Oprim inamicul
         agent.SetDestination(transform.position);
