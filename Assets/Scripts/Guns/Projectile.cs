@@ -7,6 +7,8 @@ public class Projectile : MonoBehaviour
     public GameObject explosion;
     public LayerMask whatIsPlayer;
 
+    //private AudioSource mAudioSource;
+
     //Stats
     [Range(0f, 1f)]
     public float bounciness;
@@ -28,10 +30,12 @@ public class Projectile : MonoBehaviour
     private void Start()
     {
         Setup();
+        //mAudioSource = getComponent<AudioSource>();
     }
 
     private void Update()
     {
+        //mAudioSource.Play();
         //When to explode:
         if (collisions > maxCollisions) Explode();
 

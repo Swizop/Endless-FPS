@@ -1,3 +1,4 @@
+using System.Collections;
 using JetBrains.Annotations;
 using System.Collections;
 using UnityEngine;
@@ -6,6 +7,10 @@ using UnityEngine.UI;
 
 public class EnemyBehaviour : MonoBehaviour
 {
+   
+    [SerializeField]
+    AudioSource enmSound;
+
     public NavMeshAgent agent;
 
     public Transform player;
@@ -39,6 +44,9 @@ public class EnemyBehaviour : MonoBehaviour
     public float sightRange, attackRange;
     public bool playerInSightRange, playerInAttackRange, playerVisible;
 
+    // Folosit pt functia async, SlowDown
+    private Coroutine coroutine;
+
     private void Start()
     {
         health = maxHealth;
@@ -71,8 +79,29 @@ public class EnemyBehaviour : MonoBehaviour
 
         if (playerInSightRange && !playerInAttackRange) ChasePlayer();
 
-        if (playerInAttackRange && playerInSightRange) AttackPlayer();
+        if (playerInAttackRange && playerInSightRange){
+            AttackPlayer();
+            enmSound.Play();
+        } 
+       
+    }
 
+    public void SlowDown()
+    {
+        if(coroutine != null)
+        {
+            agent.speed *= 2;
+            StopCoroutine(coroutine);
+        }
+        coroutine = StartCoroutine(AsyncSlowDown());
+    }
+
+    private IEnumerator AsyncSlowDown()
+    {
+        agent.speed /= 2;
+        yield return new WaitForSeconds(0.9f);
+        StopCoroutine(coroutine);
+        agent.speed *= 2;
     }
 
     public void LateUpdate()
