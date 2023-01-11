@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class MainMenu : MonoBehaviour
 {
     public string firstLevel;
+    public string secondLevel;
     private AudioSource gameStartedAudio;
 
     void Start()
@@ -25,9 +26,14 @@ public class MainMenu : MonoBehaviour
     }
 
     // Bound to the NewGame button in the MainMenu
-    public void NewGame()
+    public void ForestLevel()
     {
         SceneManager.LoadScene(firstLevel);
+    }
+
+    public void DungeonLevel()
+    {
+        SceneManager.LoadScene(secondLevel);
     }
 
     public void Settings()
