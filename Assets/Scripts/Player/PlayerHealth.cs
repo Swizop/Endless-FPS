@@ -1,9 +1,10 @@
+using System;
 using Assets.Pixelation.Scripts;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : MonoBehaviour, ISaveable
 {
     public int health = 100;
     public bool invincible = false;
@@ -39,5 +40,24 @@ public class PlayerHealth : MonoBehaviour
         // Debug.Log(other.tag);
     }
 
+    public object CaptureState()
+    {
+        return new SaveData()
+        {
+            health = this.health
+        };
+    }
 
+    public void RestoreState(object state)
+    {
+        var saveData = (SaveData)state;
+        health = saveData.health;
+    }
+
+
+    [Serializable]
+    private struct SaveData
+    {
+        public int health;
+    }
 }
