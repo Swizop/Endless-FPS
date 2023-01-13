@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,14 @@ public class PlayerMovement : MonoBehaviour
     //audio footsteps
     //public AudioSource footstepsSound;
 
+    // public float[] position;
+    // public PlayerMovement(PlayerMovement player)
+    // {
+    //     position = new float[3];
+    //     position[0] = transform.position.x;
+    //     position[1] = transform.position.y;
+    //     position[2] = transform.position.z;
+    // }
     public float moveSmoothTime;
     public float gravityStrength;
     public float jumpStrength;
@@ -86,4 +95,34 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(currentForceVelocity * Time.deltaTime);
         
     }
+    // public object CaptureState()
+    // {
+    //     return new SaveData()
+    //     {
+    //         position = this.position
+    //     };
+    // }
+
+    // public void RestoreState(object state)
+    // {
+    //     var saveData = (SaveData)state;
+    //     position = saveData.position;
+        
+    //     Vector3 position;
+    //     position.x = saveData.position.x;
+    //     position.y = saveData.position.y;
+    //     position.z = saveData.position.z;
+
+    //     transform.position = position;
+    // }
+
+
+    // [Serializable]
+    // private struct SaveData
+    // {
+    //     position = new float[3];
+    //     position[0] = transform.position.x;
+    //     position[1] = transform.position.y;
+    //     position[2] = transform.position.z;
+    // }
 }

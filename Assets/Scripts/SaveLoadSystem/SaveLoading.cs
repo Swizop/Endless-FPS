@@ -10,16 +10,16 @@ public class SaveLoading: MonoBehaviour
 {
     public string SavePath => $"{Application.persistentDataPath}/save.txt";
 
-    [ContextMenu("Save")]
-    void Save()
+    //[ContextMenu("Save")]
+    public void Save()
     {
         var state = LoadFile();
         CaptureState(state);
         SaveFile(state);
     }
 
-    [ContextMenu("Load")]
-    void Load()
+    //[ContextMenu("Load")]
+    public void Load()
     {
             var state = LoadFile();
             RestoreState(state);
@@ -49,7 +49,7 @@ public class SaveLoading: MonoBehaviour
             }
     }
 
-    void CaptureState(Dictionary<string, object> state)
+    public void CaptureState(Dictionary<string, object> state)
     {
             foreach(var saveable in FindObjectsOfType<SaveableEntity>())
             {
@@ -57,7 +57,7 @@ public class SaveLoading: MonoBehaviour
             }
     }
 
-    void RestoreState(Dictionary<string, object> state)
+    public void RestoreState(Dictionary<string, object> state)
     {
         foreach(var saveable in FindObjectsOfType<SaveableEntity>())
         {
