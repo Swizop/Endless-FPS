@@ -34,6 +34,8 @@ public class WeaponSystem : MonoBehaviour
 
     public GameObject muzzleFlash, bulletHoleGraphic;
 
+    public Score score;
+
      private void Start()
         {
             if(source != null) source.clip = GunShotClip;
@@ -124,6 +126,7 @@ public class WeaponSystem : MonoBehaviour
 
             if (raycastHit.collider.CompareTag("Enemy"))
             {
+                score.EventPerformed(difficultyAffectedDamage == damage ? Score.UserEvent.perfectShot : Score.UserEvent.normalShot);
                 raycastHit.transform.gameObject.GetComponent<EnemyBehaviour>().health =
                     Mathf.Max(0, raycastHit.transform.gameObject.GetComponent<EnemyBehaviour>().health - difficultyAffectedDamage);
                 raycastHit.transform.gameObject.GetComponent<EnemyBehaviour>().SlowDown();
