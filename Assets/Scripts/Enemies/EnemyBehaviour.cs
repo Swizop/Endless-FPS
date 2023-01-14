@@ -25,6 +25,8 @@ public class EnemyBehaviour : MonoBehaviour
 
     public Animator animator;
 
+    public Score score;
+
     //Viata
     private bool _healthBarHidden;
     [SerializeField]
@@ -206,6 +208,7 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void DestroyEnemy()
     {
+        score.EventPerformed(Score.UserEvent.killedEnemy);
         // The enemy has a small chance of spawning a Power Up upon it's death
         float chance = Random.Range(0, 1f);
         // Debug.Log(chance);
