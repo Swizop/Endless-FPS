@@ -36,7 +36,11 @@ public class PlayerLook : MonoBehaviour, ISaveable
 
         if (updated)
         {
-            XYRotation.y = XYRotationUpdate.y;
+            XYRotation = XYRotationUpdate;
+            if (XYRotation.x > 270)
+            {
+                XYRotation.x -= 360;
+            }
             updated = false;
         }
 
