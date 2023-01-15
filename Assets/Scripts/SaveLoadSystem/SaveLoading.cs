@@ -10,7 +10,7 @@ public class SaveLoading: MonoBehaviour
 {
     public string SavePath => $"{Application.persistentDataPath}/save.txt";
 
-    //[ContextMenu("Save")]
+    // [ContextMenu("Save")]
     public void Save()
     {
         var state = LoadFile();
@@ -18,7 +18,7 @@ public class SaveLoading: MonoBehaviour
         SaveFile(state);
     }
 
-    //[ContextMenu("Load")]
+    // [ContextMenu("Load")]
     public void Load()
     {
             var state = LoadFile();

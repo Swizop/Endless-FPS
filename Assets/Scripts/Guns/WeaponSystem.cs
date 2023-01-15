@@ -32,7 +32,7 @@ public class WeaponSystem : MonoBehaviour
     // Elemente de grafica
     public float cameraShakeStrength, cameraShakeDuration;
 
-    public GameObject muzzleFlash, bulletHoleGraphic;
+    public GameObject muzzleFlash, bulletHoleGraphic, bloodEffect;
 
      private void Start()
         {
@@ -124,11 +124,15 @@ public class WeaponSystem : MonoBehaviour
 
             if (raycastHit.collider.CompareTag("Enemy"))
             {
+                var player = GameObject.FindGameObjectWithTag("Player");
                 raycastHit.transform.gameObject.GetComponent<EnemyBehaviour>().health =
                     Mathf.Max(0, raycastHit.transform.gameObject.GetComponent<EnemyBehaviour>().health - difficultyAffectedDamage);
                 raycastHit.transform.gameObject.GetComponent<EnemyBehaviour>().SlowDown();
 
-                Instantiate(damagePopup, raycastHit.transform.position + new Vector3(0,1,0), GameObject.FindGameObjectWithTag("Player").transform.rotation);
+                Instantiate(damagePopup, raycastHit.transform.position + new Vector3(0,1,0), player.transform.rotation);
+
+                GameObject bloodSpray = Instantiate(bloodEffect, raycastHit.point, Quaternion.identity) as GameObject;
+                bloodSpray.transform.LookAt(player.transform);
             }
             else
             {

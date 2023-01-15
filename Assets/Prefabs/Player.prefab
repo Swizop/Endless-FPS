@@ -7003,6 +7003,7 @@ MonoBehaviour:
   source: {fileID: 1129348754223434974}
   audioPitch: {x: 0.9, y: 1.1}
   damage: 15
+  difficultyAffectedDamage: 0
   damagePopup: {fileID: 6168887200353617280, guid: 9a4f4c72a2e707948909b5c7fd0044dd, type: 3}
   reloadTime: 1
   spread: 0.02
@@ -7025,6 +7026,7 @@ MonoBehaviour:
   cameraShakeDuration: 0.05
   muzzleFlash: {fileID: 1000010254994808, guid: 9defeac88977c0d448aa4541073ee9e4, type: 3}
   bulletHoleGraphic: {fileID: 1000010844420130, guid: 4edabb1c0dde62743b137378c7d22980, type: 3}
+  bloodEffect: {fileID: 1000012909287652, guid: 10db134be8cf89e4ea46865f32b4d35b, type: 3}
 --- !u!114 &6252042116679659592
 MonoBehaviour:
   m_ObjectHideFlags: 0

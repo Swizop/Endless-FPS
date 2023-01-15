@@ -42,14 +42,16 @@ public class PlayerHealth : MonoBehaviour, ISaveable
 
     public object CaptureState()
     {
+
         return new SaveData()
         {
-            health = this.health
+            health = this.health,
         };
     }
 
     public void RestoreState(object state)
     {
+        Debug.Log("Loading state health");
         var saveData = (SaveData)state;
         health = saveData.health;
     }
@@ -59,8 +61,5 @@ public class PlayerHealth : MonoBehaviour, ISaveable
     private struct SaveData
     {
         public int health;
-    }
-
-    
-
+    }  
 }
