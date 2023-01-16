@@ -7,9 +7,7 @@ using UnityEngine.UI;
 
 public class EnemyBehaviour : MonoBehaviour
 {
-   
-    [SerializeField]
-    AudioSource enmSound;
+  
 
     public NavMeshAgent agent;
 
@@ -83,7 +81,6 @@ public class EnemyBehaviour : MonoBehaviour
 
         if (playerInAttackRange && playerInSightRange){
             AttackPlayer();
-            enmSound.Play();
         } 
        
     }

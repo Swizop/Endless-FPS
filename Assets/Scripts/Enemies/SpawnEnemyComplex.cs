@@ -24,6 +24,7 @@ public class SpawnEnemyComplex : MonoBehaviour
         {
             var enemySpawned = Instantiate(enemy, transform.position, Quaternion.identity);
             enemySpawned.GetComponent<EnemyBehaviour>().player = GameObject.FindGameObjectWithTag("Player").transform;
+            enemySpawned.GetComponent<EnemyBehaviour>().score = GameObject.FindGameObjectWithTag("ScoreObject").GetComponent<Score>();
         }
     }
 }

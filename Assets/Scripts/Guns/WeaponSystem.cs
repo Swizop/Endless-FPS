@@ -96,7 +96,7 @@ public class WeaponSystem : MonoBehaviour
         difficultyAffectedDamage = damage;
         readyToShoot = false;
         // Spread is influenced by difficulty and by the user's state (running or not)
-        float influencedSpread = spread + ((float)pauseSettingsController.difficultyLevel / 45);
+        float influencedSpread = spread + ((float)pauseSettingsController.difficultyLevel / 100);
         if (characterController.velocity.magnitude > 0)
         {
             influencedSpread *= 1.5f;
@@ -114,7 +114,7 @@ public class WeaponSystem : MonoBehaviour
         // Generam un damage nou pentru hit, mai mic decat damage-ul normal al armei.
         int newDamage = Random.Range(1, damage);
         // Damage-ul hitului va fi schimbat in cel nou (mai mic), cu o probabilitate dependenta de dificultatea jocului
-        if(Random.Range(0, 100) < (pauseSettingsController.difficultyLevel * 10))
+        if(Random.Range(0, 100) < ((pauseSettingsController.difficultyLevel+1) * 40))
         {
             difficultyAffectedDamage = newDamage;
         }
