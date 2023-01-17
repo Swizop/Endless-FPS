@@ -1,9 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class Score : MonoBehaviour
+public class Score : MonoBehaviour, ISaveable
 {
     [SerializeField] TextMeshProUGUI highScoreText;
     [SerializeField] TextMeshProUGUI currentScoreText;
@@ -55,4 +56,29 @@ public class Score : MonoBehaviour
         perfectShot,
         killedEnemy
     }
+    public object CaptureState()
+    {
+        return new SaveData()
+        {
+            highScore = this.highScore,
+            currentScore = this.currentScore
+        };
+    }
+
+    public void RestoreState(object state)
+    {
+        var saveData = (SaveData)state;
+        highScore = saveData.highScore;
+        currentScore = saveData.currentScore;
+        UpdateText(currentScoreText, $"Current score: {currentScore}");
+    }
+
+
+    [Serializable]
+    private struct SaveData
+    {
+        public int highScore;
+        public int currentScore;
+    }
+
 }

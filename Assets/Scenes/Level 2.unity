@@ -42639,6 +42639,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1617453441}
   - component: {fileID: 1617453442}
+  - component: {fileID: 1617453443}
   m_Layer: 7
   m_Name: ScoreObject
   m_TagString: ScoreObject
@@ -42677,6 +42678,19 @@ MonoBehaviour:
   currentScoreText: {fileID: 480497832}
   highScore: 0
   currentScore: 0
+--- !u!114 &1617453443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617453440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 531c868c45a3b8f428b43ac65cf5587b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 5b0d4939-f919-4312-adb0-f5012147ff2c
 --- !u!4 &1617946688 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0488eff04c158c5489ac0b15ac33623c, type: 3}
