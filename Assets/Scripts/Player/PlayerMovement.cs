@@ -3,19 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, ISaveable
 {
-    //audio footsteps
-    //public AudioSource footstepsSound;
-
-    // public float[] position;
-    // public PlayerMovement(PlayerMovement player)
-    // {
-    //     position = new float[3];
-    //     position[0] = transform.position.x;
-    //     position[1] = transform.position.y;
-    //     position[2] = transform.position.z;
-    // }
     public float moveSmoothTime;
     public float gravityStrength;
     public float jumpStrength;
@@ -95,34 +84,34 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(currentForceVelocity * Time.deltaTime);
         
     }
-    // public object CaptureState()
-    // {
-    //     return new SaveData()
-    //     {
-    //         position = this.position
-    //     };
-    // }
 
-    // public void RestoreState(object state)
-    // {
-    //     var saveData = (SaveData)state;
-    //     position = saveData.position;
-        
-    //     Vector3 position;
-    //     position.x = saveData.position.x;
-    //     position.y = saveData.position.y;
-    //     position.z = saveData.position.z;
+    public object CaptureState()
+    {
+        return new SaveData()
+        {
+            xPos = controller.transform.position.x,
+            yPos = controller.transform.position.y,
+            zPos = controller.transform.position.z,
+        };
+    }
 
-    //     transform.position = position;
-    // }
+    public void RestoreState(object state)
+    {
+
+        Debug.Log("Loading state position");
+        var saveData = (SaveData)state;
+
+        controller.enabled = false;
+        controller.transform.position = new Vector3(saveData.xPos, saveData.yPos, saveData.zPos);
+        controller.enabled = true;
+    }
 
 
-    // [Serializable]
-    // private struct SaveData
-    // {
-    //     position = new float[3];
-    //     position[0] = transform.position.x;
-    //     position[1] = transform.position.y;
-    //     position[2] = transform.position.z;
-    // }
+    [Serializable]
+    private struct SaveData
+    {
+        public float xPos;
+        public float yPos;
+        public float zPos;
+    }
 }
