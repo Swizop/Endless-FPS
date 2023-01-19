@@ -33,6 +33,11 @@ public class WeaponSystem : MonoBehaviour
     public float cameraShakeStrength, cameraShakeDuration;
 
     public GameObject muzzleFlash, bulletHoleGraphic, bloodEffect;
+<<<<<<< Updated upstream
+=======
+
+    public Score score;
+>>>>>>> Stashed changes
 
      private void Start()
         {
@@ -125,13 +130,22 @@ public class WeaponSystem : MonoBehaviour
             if (raycastHit.collider.CompareTag("Enemy"))
             {
                 var player = GameObject.FindGameObjectWithTag("Player");
+<<<<<<< Updated upstream
+=======
+                score.EventPerformed(difficultyAffectedDamage == damage ? Score.UserEvent.perfectShot : Score.UserEvent.normalShot);
+>>>>>>> Stashed changes
                 raycastHit.transform.gameObject.GetComponent<EnemyBehaviour>().health =
                     Mathf.Max(0, raycastHit.transform.gameObject.GetComponent<EnemyBehaviour>().health - difficultyAffectedDamage);
                 raycastHit.transform.gameObject.GetComponent<EnemyBehaviour>().SlowDown();
 
                 Instantiate(damagePopup, raycastHit.transform.position + new Vector3(0,1,0), player.transform.rotation);
 
+<<<<<<< Updated upstream
                 GameObject bloodSpray = Instantiate(bloodEffect, raycastHit.point, Quaternion.identity) as GameObject;
+=======
+                // efect sange
+                GameObject bloodSpray = Instantiate(bloodEffect, raycastHit.point, Quaternion.identity, raycastHit.transform) as GameObject;
+>>>>>>> Stashed changes
                 bloodSpray.transform.LookAt(player.transform);
             }
             else

@@ -63,7 +63,11 @@ ParticleSystem:
       m_Curve:
       - serializedVersion: 3
         time: 0
+<<<<<<< Updated upstream
         value: 0
+=======
+        value: 1
+>>>>>>> Stashed changes
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -72,7 +76,11 @@ ParticleSystem:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
+<<<<<<< Updated upstream
         value: 0
+=======
+        value: 1
+>>>>>>> Stashed changes
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -4542,6 +4550,10 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 3ea2e59d181ffce4e97d5d1d07a22c05, type: 2}
+<<<<<<< Updated upstream
+=======
+  - {fileID: 0}
+>>>>>>> Stashed changes
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4645,7 +4657,11 @@ ParticleSystem:
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
+<<<<<<< Updated upstream
   autoRandomSeed: 0
+=======
+  autoRandomSeed: 1
+>>>>>>> Stashed changes
   startDelay:
     serializedVersion: 2
     minMaxState: 0
@@ -9184,6 +9200,10 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 0}
+<<<<<<< Updated upstream
+=======
+  - {fileID: 0}
+>>>>>>> Stashed changes
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

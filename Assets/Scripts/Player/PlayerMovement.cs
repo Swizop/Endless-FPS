@@ -5,17 +5,6 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour, ISaveable
 {
-    //audio footsteps
-    //public AudioSource footstepsSound;
-
-    // public float[] position;
-    // public PlayerMovement(PlayerMovement player)
-    // {
-    //     position = new float[3];
-    //     position[0] = transform.position.x;
-    //     position[1] = transform.position.y;
-    //     position[2] = transform.position.z;
-    // }
     public float moveSmoothTime;
     public float gravityStrength;
     public float jumpStrength;

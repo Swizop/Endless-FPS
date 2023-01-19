@@ -9,8 +9,14 @@ public class PlayerLook : MonoBehaviour, ISaveable
     public Vector2 sensitivity;
 
     private Vector2 XYRotation;
+<<<<<<< Updated upstream
     Vector2 XYRotationUpdate;
     bool updated;
+=======
+    private Vector2 XYRotationUpdate;
+    private bool updated;
+
+>>>>>>> Stashed changes
     private void Start()
     {
         // We don't want a cursor running around the screen while playing
@@ -49,6 +55,33 @@ public class PlayerLook : MonoBehaviour, ISaveable
         transform.eulerAngles = new Vector3(0f, XYRotation.y, 0f);
         playerCamera.localEulerAngles = new Vector3(XYRotation.x, 0f, 0f);
    
+    }
+
+    public object CaptureState()
+    {
+        return new SaveData()
+        {
+            xRot = playerCamera.localEulerAngles.x,
+            yRot = transform.eulerAngles.y,
+        };
+    }
+
+    public void RestoreState(object state)
+    {
+        Debug.Log("Loading state rotation");
+        var saveData = (SaveData)state;
+
+        updated = true;
+        XYRotationUpdate = new Vector2(saveData.xRot, saveData.yRot);
+        /*Debug.Log("Look vector:");
+        Debug.Log(XYRotationUpdate);*/
+    }
+
+    [Serializable]
+    private struct SaveData
+    {
+        public float xRot;
+        public float yRot;
     }
 
     public object CaptureState()
